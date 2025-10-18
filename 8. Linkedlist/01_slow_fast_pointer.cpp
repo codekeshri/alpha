@@ -30,42 +30,12 @@ void printList(ListNode* head) {
   cout << endl;
 }
 
-bool isPalindrome(ListNode* head){
-  ListNode *slow = head, *fast= head, *tail=head;
-  stack<int>st;
-  if(!head && !head->next)return true;
-
-  while(fast && fast->next){
-    st.push(slow->val);
-    slow = slow->next;
-    fast = fast->next->next;
-
-  }
-
-  if(fast)slow = slow->next;
-  while(slow){
-    // cout << slow->val << st.top() << "\n";
-    if(slow->val != st.top())return false;
-    // cout << st.top() << "\n";
-    st.pop();
-    slow = slow->next;
-  }
-
-  return true;
-
-}
-
 
 
 int main() {
-  vector<int> vals = {1, 2, 3, 2, 1};
-  // vector<int> vals = {1, 2, 3, 3, 2, 1};
+  vector<int> vals = {1, 2};
   ListNode* head = createList(vals);
-  // printList(head);
-
-  
-
-cout << isPalindrome(head);
+  printList(head);
 
   return 0;
 }
