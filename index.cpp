@@ -1,71 +1,65 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
-struct ListNode {
+class Node{
+  public:
   int val;
-  ListNode* next;
-  ListNode() : val(0), next(nullptr) {}
-  ListNode(int x) : val(x), next(nullptr) {}
-  ListNode(int x, ListNode* next) : val(x), next(next) {}
+  Node *left, *right;
+
+  Node(int val){
+    this->val = val;
+    this->left = this->right = NULL;
+
+  }
 };
 
+  static int idx = -1;
+  Node* buildTree(vector<int>v){
+    idx++;
+    if(v[idx]==-1)return NULL;
 
-ListNode* createList(vector<int> vals) {
-  if (vals.empty()) return nullptr;
-  ListNode* head = new ListNode(vals[0]);
-  ListNode* curr = head;
-  for (int i = 1; i < vals.size(); ++i) {
-    curr->next = new ListNode(vals[i]);
-    curr = curr->next;
+    Node* temp = new Node(v[idx]);
+    temp->left = buildTree(v); 
+    temp->right = buildTree(v); 
+    return temp;
   }
-  return head;
-}
 
-void printList(ListNode* head) {
-  while (head) {
-    cout << head->val;
-    if (head->next) cout << " ";
-    head = head->next;
+  void preorder(Node* root){
+    if(root == NULL)return;
+    cout << root->val <<" ";
+    preorder(root->left);
+    preorder(root->right);
   }
+
+  void inorder(Node* root){
+    if(!root)return;
+    inorder(root->left);
+    cout << root->val << " ";
+    inorder(root->right);
+
+  }
+
+  void postorder(Node* root){
+    if(!root)return;
+    postorder(root->left);
+    postorder(root->right);
+    cout << root->val << " ";
+
+  }
+
+  void levelorder(Node* root){
+    
+  }
+
+
+int main(){
+  vector<int>v = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
+  Node* root =  buildTree(v);
+  preorder(root);
   cout << endl;
-}
-
-bool isPalindrome(ListNode* head){
-  ListNode *slow = head, *fast= head, *tail=head;
-  stack<int>st;
-  if(!head && !head->next)return true;
-
-  while(fast && fast->next){
-    st.push(slow->val);
-    slow = slow->next;
-    fast = fast->next->next;
-
-  }
-
-  if(fast)slow = slow->next;
-  while(slow){
-    // cout << slow->val << st.top() << "\n";
-    if(slow->val != st.top())return false;
-    // cout << st.top() << "\n";
-    st.pop();
-    slow = slow->next;
-  }
-
-  return true;
-
-}
+  inorder(root);
+  cout<<endl;
+  postorder(root);
 
 
-
-int main() {
-  vector<int> vals = {1, 2, 3, 2, 1};
-  // vector<int> vals = {1, 2, 3, 3, 2, 1};
-  ListNode* head = createList(vals);
-  // printList(head);
-
-  
-
-cout << isPalindrome(head);
-
-  return 0;
 }

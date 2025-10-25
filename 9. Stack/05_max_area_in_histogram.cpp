@@ -1,33 +1,21 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include<utility>
 using namespace std;
 
-vector<int> nextSmallerRight(stack<int> st){
-     vector<int>v;
-
-        return v;
-}
-
-vector<int> nextSmallerLeft(stack<int>st){
-    vector<int>v;
-
-        return v;
-}
-
-int maxAreaInHistogram(stack<int>st){
-
-    return 0;
-}
-int main(){
-    stack<int> st;
-    st.push(2);
-    st.push(1);
-    st.push(5);
-    st.push(6);
-    st.push(2);
-    st.push(3);
-
-    while(st.size()){cout << st.top() << " "; st.pop();}
-
-
+int main() 
+{
+    vector<int>v = {7,1,5,3,6,4};
+    int n = v.size();
+    vector<pair<int, int>>arr(n);
+    for(int i=0; i<v.size(); i++){
+      pair<int, int> p;
+      p.first = v[i];
+      p.second = i;
+      arr[i] = p;
+    }
+    for(auto i: arr){
+      cout << i.first << " " << i.second << "\n";
+    }
     return 0;
 }
