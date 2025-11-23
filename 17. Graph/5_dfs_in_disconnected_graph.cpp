@@ -22,34 +22,24 @@ public:
         if(isUndir)l[v].push_back(u);
     }
 
-    void bfsHelper(int src, vector<bool>&vis){ // O(V+E)
-        queue<int>q;
-        q.push(src);
+    void helper(int src, vector<bool>&vis){
         vis[src]=true;
-        while(q.size()>0){
-            int front = q.front();
-            q.pop();
-            cout << front << " ";
-            for(int v: l[front]){
-                if(!vis[v]){
-                    q.push(v);
-                    vis[v] = true;
-                }
-            }
+        cout << src << " ";
 
+        for(int v: l[src]){
+            if(!vis[v])helper(v, vis);
         }
-        cout << endl;
-        
     }
 
-    void bfs(){
+    void dfs(int src){
         vector<bool>vis(V, false);
         for(int i=0; i<V; i++){
-            if(!vis[i])bfsHelper(i, vis);
+            if(!vis[i]){
+                helper(i, vis);
+                cout << endl;
+            }
         }
-
     }
-    
 };
 
 
@@ -64,7 +54,8 @@ int main(){
     graph.addEdge(3, 8);
     graph.addEdge(3, 7);
 
-    graph.bfs();
+    graph.dfs(0);
+
 
     return 0;
 }
