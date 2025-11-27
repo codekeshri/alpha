@@ -22,21 +22,23 @@ public:
         if(isUndir)l[v].push_back(u);
     }
 
-    void dfsHelper(int src, vector<bool>&vis){
+    void dfsHelper(int src, vector<bool>&vis, int parent, bool &isCycle){
         vis[src]=true;
         cout << src << " ";
         for(int v: l[src]){
-            if(!vis[v])dfsHelper(v, vis);
+            if(!vis[v])dfsHelper(v, vis, src, isCycle);
+            else if (v==parent)isCycle = true;
         }
 
     }
 
     void dfs(){
         vector<bool>vis(V, false);
-
+        bool isCycle = false;
         for(int i=0; i<V; i++){
-            if(!vis[i])dfsHelper(i, vis);
+            if(!vis[i])dfsHelper(i, vis, -1, isCycle);
         }
+        cout << endl << isCycle ;
     }
     
 };
